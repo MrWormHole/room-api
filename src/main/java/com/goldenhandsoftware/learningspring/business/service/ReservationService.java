@@ -25,7 +25,7 @@ public class ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-    public List<RoomReservation> getRoomReservationsForDate(Date date) {
+    public List<RoomReservation> getRoomReservationsFromDate(Date date) {
         // Get rooms ready for room reservations
         Iterable<Room> rooms = this.roomRepository.findAll();
         Map<Long, RoomReservation> roomReservationMap = new HashMap<Long, RoomReservation>();
@@ -53,6 +53,18 @@ public class ReservationService {
         for(Long id: roomReservationMap.keySet()) {
             roomReservations.add(roomReservationMap.get(id));
         }
+
+        // Sort room names at the end
+        roomReservations.sort(new Comparator<RoomReservation>() {
+            @Override
+            public int compare(RoomReservation o1, RoomReservation o2) {
+                if(o1.getRoomName() == o2.getRoomName()) {
+                    return o1.getRoomNumber().compareTo(o2.getRoomNumber());
+                }
+                return o1.getRoomName().compareTo(o2.getRoomName());
+            }
+        });
+
         return roomReservations;
     }
 }
