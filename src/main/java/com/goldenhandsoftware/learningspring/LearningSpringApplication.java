@@ -20,7 +20,8 @@ public class LearningSpringApplication {
 		SpringApplication.run(LearningSpringApplication.class, args);
 	}
 
-	@RestController
+	// Commented out this because of mockito BDD tests
+	/*@RestController
 	@RequestMapping("/rooms")
 	public class RoomController {
 		@Autowired
@@ -31,5 +32,5 @@ public class LearningSpringApplication {
 			return this.roomRepository.findAll();
 		}
 
-	}
+	}*/
 }
